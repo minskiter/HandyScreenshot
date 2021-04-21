@@ -29,9 +29,11 @@ namespace HandyScreenshot.ViewModels
 
         public MonitorInfo MonitorInfo { get; }
 
-        public ICommand CloseCommand { get; } = new RelayCommand(() => Application.Current.Shutdown());
+        public ICommand CloseCommand { get; } = new RelayCommand(() => Application.Current.Shutdown(0));
 
         public ScreenshotState State { get; }
+
+        public ICommand EnterCommand { get; set; } = new RelayCommand(() => { });
 
         public MainWindowViewModel(
             IObservable<(MouseMessage message, int x, int y)> mouseEventSource,
@@ -50,6 +52,15 @@ namespace HandyScreenshot.ViewModels
             ColorGetter = GetColorByCoordinate;
 
             SharedProperties.Disposables.Push(disposable);
+            EnterCommand = new RelayCommand(() =>
+            {
+                //https://stackoverflow.com/questions/12257908/how-to-crop-image-and-save-into-imagesource-in-wpf
+                if (State != null && Background != null)
+                {
+                    Clipboard.SetImage(new CroppedBitmap(Background, new Int32Rect(State.ScreenshotRect.X, State.ScreenshotRect.Y, State.ScreenshotRect.Width, State.ScreenshotRect.Height)));
+                    Application.Current.Shutdown(1);
+                }
+            });
         }
 
         public void Initialize()

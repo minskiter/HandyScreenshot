@@ -28,6 +28,7 @@
     <Window.InputBindings>
         <KeyBinding Key="Escape"
                     Command="{Binding CloseCommand}" />
+        <KeyBinding Key="Enter" Command="{Binding EnterCommand}" />
     </Window.InputBindings>
 
     <controls:ZStackPanel Cursor="{Binding State.Orientation, Mode=OneWay, Converter={StaticResource PointOrientationToCursorConverter}}">
@@ -41,7 +42,8 @@
                             MagnifiedTarget="{Binding ElementName=ClipBox, Path=Visual, Mode=OneWay}"
                             ColorGetter="{Binding ColorGetter}" />
 
-        <TextBlock Background="#AA000000"
+
+        <!-- <TextBlock Background="#AA000000"
                    Foreground="White"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Top">
@@ -63,6 +65,6 @@
             <LineBreak />
             ScaleXY:
             (<Run Text="{Binding Path=ScaleX, Mode=OneWay}" />, <Run Text="{Binding Path=ScaleY, Mode=OneWay}" />)
-        </TextBlock>
+        </TextBlock> -->
     </controls:ZStackPanel>
 </Window>
