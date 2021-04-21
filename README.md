@@ -15,13 +15,13 @@ Exit Code:
 {
     "1": "Success Paste",
     "0": "Exit",
-    "Others",: "Fail"
+    "Others": "Fail"
 }
 ```
 
 ``` js
-exec(`paste.exe`,(err,stdout)=>{
-    if (stdout==1){
+exec(`paste.exe`,(exitcode)=>{
+    if (exitcode){
         // Your code
     }else{
         // Handle errors
